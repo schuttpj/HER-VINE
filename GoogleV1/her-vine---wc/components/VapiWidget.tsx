@@ -25,6 +25,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
   
   const requiredPassword = import.meta.env.VITE_VAPI_PASSWORD || '';
 
@@ -70,6 +71,10 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
       setShowPasswordModal(true);
       setPassword('');
       setPasswordError('');
+      // Focus input after animation completes (prevents zoom)
+      setTimeout(() => {
+        passwordInputRef.current?.focus();
+      }, 350);
     } else {
       // No password required, start directly
       startCall();
@@ -120,9 +125,9 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
       {/* Password Modal - Small glass effect popup */}
       {showPasswordModal && (
         <>
-          {/* Backdrop overlay */}
+          {/* Backdrop overlay with fade animation */}
           <div 
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]"
             onClick={() => {
               setShowPasswordModal(false);
               setPassword('');
@@ -130,9 +135,9 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
             }}
           />
           
-          {/* Glass modal positioned below button */}
+          {/* Glass modal positioned below button with smooth animation */}
           <div 
-            className={`${mobile ? 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-3rem)] max-w-sm' : 'absolute top-full right-0 mt-2 w-72'} z-50 rounded-sm overflow-hidden`}
+            className={`${mobile ? 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-3rem)] max-w-sm animate-[modalSlideInMobile_0.3s_ease-out]' : 'absolute top-full right-0 mt-2 w-72 animate-[modalSlideIn_0.3s_ease-out]'} z-50 rounded-sm overflow-hidden`}
             style={{
               background: 'rgba(245, 242, 235, 0.98)',
               backdropFilter: 'blur(24px)',
@@ -160,15 +165,16 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
 
               <form onSubmit={handlePasswordSubmit}>
                 <input
+                  ref={passwordInputRef}
                   type="password"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                     setPasswordError('');
                   }}
-                  className="w-full px-4 py-2.5 text-xs font-sans border border-hv-terracotta/30 rounded-sm focus:outline-none focus:border-hv-terracotta focus:ring-1 focus:ring-hv-terracotta/20 text-hv-charcoal bg-white/80 placeholder:text-hv-charcoal/40 mb-2 transition-all"
+                  className="w-full px-4 py-2.5 text-base font-sans border border-hv-terracotta/30 rounded-sm focus:outline-none focus:border-hv-terracotta focus:ring-1 focus:ring-hv-terracotta/20 text-hv-charcoal bg-white/80 placeholder:text-hv-charcoal/40 mb-2 transition-all"
                   placeholder="Enter password"
-                  autoFocus
+                  style={{ fontSize: '16px' }}
                 />
                 {passwordError && (
                   <p className="text-[10px] text-red-600 mb-3 font-sans">{passwordError}</p>
