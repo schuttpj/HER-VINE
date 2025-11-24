@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
+      className={`sticky lg:fixed top-0 w-full z-50 transition-all duration-300 border-b ${
         isScrolled 
           ? 'bg-hv-cream/90 backdrop-blur-xl border-hv-charcoal/5 py-4' 
           : 'bg-black/20 backdrop-blur-sm border-white/5 py-6'
@@ -120,10 +120,10 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu - Expands and pushes content down */}
       <div 
-        className={`lg:hidden bg-hv-cream border-b border-hv-charcoal/10 transition-all duration-300 ease-out overflow-hidden ${
+        className={`lg:hidden bg-hv-cream border-b border-hv-charcoal/10 transition-all duration-300 ease-out ${
           isMobileMenuOpen 
-            ? 'max-h-screen opacity-100' 
-            : 'max-h-0 opacity-0'
+            ? 'max-h-[800px] opacity-100' 
+            : 'max-h-0 opacity-0 overflow-hidden'
         }`}
       >
         <div className="px-6 py-6 space-y-6">
