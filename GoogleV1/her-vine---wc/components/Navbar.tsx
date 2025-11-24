@@ -127,6 +127,10 @@ const Navbar: React.FC = () => {
               : '-translate-y-full'
           }`}
           onClick={(e) => e.stopPropagation()}
+          style={{ 
+            maxHeight: '100vh',
+            WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
+          }}
         >
           {/* Header with close button */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-hv-charcoal/10">
@@ -171,6 +175,7 @@ const Navbar: React.FC = () => {
                 apiKey={import.meta.env.VITE_VAPI_API_KEY}
                 assistantId={import.meta.env.VITE_VAPI_ASSISTANT_ID}
                 mobile={true}
+                onCallStart={closeMobileMenu}
               />
             )}
           </div>

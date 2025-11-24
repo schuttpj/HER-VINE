@@ -7,13 +7,15 @@ interface VapiWidgetProps {
   assistantId: string;
   config?: Record<string, unknown>;
   mobile?: boolean;
+  onCallStart?: () => void;
 }
 
 const VapiWidget: React.FC<VapiWidgetProps> = ({ 
   apiKey, 
   assistantId, 
   config = {},
-  mobile = false
+  mobile = false,
+  onCallStart
 }) => {
   const [vapi, setVapi] = useState<Vapi | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -32,6 +34,10 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
     vapiInstance.on('call-start', () => {
       console.log('Call started');
       setIsConnected(true);
+      // Close mobile menu if callback provided
+      if (onCallStart) {
+        onCallStart();
+      }
     });
 
     vapiInstance.on('call-end', () => {
@@ -77,6 +83,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
   const startCall = () => {
     if (vapi) {
       vapi.start(assistantId);
+      // Note: onCallStart will be called via the 'call-start' event listener
     }
   };
 
