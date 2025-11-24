@@ -6,6 +6,7 @@ import VapiWidget from './VapiWidget';
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAssistantConnected, setIsAssistantConnected] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,21 +16,27 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
-
   const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
+    // Only allow closing if assistant is not connected
+    if (!isAssistantConnected) {
+      setIsMobileMenuOpen(false);
+    }
   };
+
+  const toggleMobileMenu = () => {
+    // If assistant is connected, keep menu open
+    if (isAssistantConnected) {
+      return;
+    }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Auto-open menu when assistant connects
+  useEffect(() => {
+    if (isAssistantConnected && !isMobileMenuOpen) {
+      setIsMobileMenuOpen(true);
+    }
+  }, [isAssistantConnected]);
 
   return (
     <header 
@@ -97,11 +104,12 @@ const Navbar: React.FC = () => {
             
             <button 
               className="lg:hidden p-2 -mr-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               aria-label="Toggle mobile menu"
+              disabled={isAssistantConnected}
             >
               {isMobileMenuOpen ? (
-                <X className={`w-6 h-6 ${isScrolled ? 'text-hv-charcoal' : 'text-white'}`} />
+                <X className={`w-6 h-6 ${isScrolled ? 'text-hv-charcoal' : 'text-white'} ${isAssistantConnected ? 'opacity-50 cursor-not-allowed' : ''}`} />
               ) : (
                 <Menu className={`w-6 h-6 ${isScrolled ? 'text-hv-charcoal' : 'text-white'}`} />
               )}
@@ -110,50 +118,28 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu - Expands and pushes content down */}
       <div 
-        className={`fixed inset-0 bg-hv-cream z-40 transition-all duration-300 ease-out ${
+        className={`lg:hidden bg-hv-cream border-b border-hv-charcoal/10 transition-all duration-300 ease-out overflow-hidden ${
           isMobileMenuOpen 
-            ? 'opacity-100 visible' 
-            : 'opacity-0 invisible pointer-events-none'
+            ? 'max-h-screen opacity-100' 
+            : 'max-h-0 opacity-0'
         }`}
-        onClick={closeMobileMenu}
       >
-        {/* Slide-down menu panel */}
-        <div 
-          className={`absolute top-0 left-0 right-0 bg-hv-cream shadow-lg transition-transform duration-300 ease-out overflow-y-auto ${
-            isMobileMenuOpen 
-              ? 'translate-y-0' 
-              : '-translate-y-full'
-          }`}
-          onClick={(e) => e.stopPropagation()}
-          style={{ 
-            maxHeight: '100vh',
-            WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
-          }}
-        >
-          {/* Header with close button */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-hv-charcoal/10">
-            <span className="text-xl font-serif tracking-widest uppercase font-medium text-hv-charcoal">
-              Her Vine
-            </span>
-            <button
-              onClick={closeMobileMenu}
-              className="p-2 -mr-2 text-hv-charcoal hover:text-hv-terracotta transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
+        <div className="px-6 py-6 space-y-6">
           {/* Navigation Items */}
-          <nav className="flex flex-col px-6 py-8 gap-6">
+          <nav className="flex flex-col gap-4">
             {NAV_ITEMS.map((item) => (
               <a 
                 key={item.label}
                 href={item.href}
-                onClick={closeMobileMenu}
-                className="text-2xl font-serif text-hv-charcoal hover:text-hv-terracotta transition-colors py-2"
+                onClick={() => {
+                  // Only close menu if assistant is not connected
+                  if (!isAssistantConnected) {
+                    closeMobileMenu();
+                  }
+                }}
+                className="text-xl font-serif text-hv-charcoal hover:text-hv-terracotta transition-colors py-2"
               >
                 {item.label}
               </a>
@@ -161,10 +147,15 @@ const Navbar: React.FC = () => {
           </nav>
 
           {/* Action Buttons */}
-          <div className="px-6 pb-8 pt-4 space-y-3 border-t border-hv-charcoal/10">
+          <div className="pt-4 space-y-3 border-t border-hv-charcoal/10">
             <a 
               href="#contact" 
-              onClick={closeMobileMenu}
+              onClick={() => {
+                // Only close menu if assistant is not connected
+                if (!isAssistantConnected) {
+                  closeMobileMenu();
+                }
+              }}
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border bg-hv-terracotta text-white border-transparent hover:bg-hv-earth"
             >
               Book Tasting
@@ -175,7 +166,7 @@ const Navbar: React.FC = () => {
                 apiKey={import.meta.env.VITE_VAPI_API_KEY}
                 assistantId={import.meta.env.VITE_VAPI_ASSISTANT_ID}
                 mobile={true}
-                onCallStart={closeMobileMenu}
+                onConnectionChange={setIsAssistantConnected}
               />
             )}
           </div>
