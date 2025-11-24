@@ -12,9 +12,52 @@ View your app in AI Studio: https://ai.studio/apps/drive/1BWH2_KurtbujrcvHrJdPHJ
 
 **Prerequisites:**  Node.js
 
-
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+   ```bash
+   npm install
+   ```
+2. Create a `.env` file with your environment variables:
+   ```
+   VITE_VAPI_API_KEY=your_api_key
+   VITE_VAPI_ASSISTANT_ID=your_assistant_id
+   VITE_VAPI_PASSWORD=your_password
+   ```
 3. Run the app:
-   `npm run dev`
+   ```bash
+   npm run dev
+   ```
+
+## Deploy to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages.
+
+### Setup Instructions:
+
+1. **Enable GitHub Pages:**
+   - Go to your repository on GitHub
+   - Navigate to Settings → Pages
+   - Under "Source", select "GitHub Actions"
+
+2. **Update Base Path (if needed):**
+   - If your repository name is different, update the `base` path in `vite.config.ts`
+   - For repository named "Hervine", it's set to `/Hervine/`
+   - For custom domain, change to `/`
+
+3. **Push to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Setup GitHub Pages deployment"
+   git push origin main
+   ```
+
+4. **Automatic Deployment:**
+   - The GitHub Actions workflow will automatically build and deploy on every push to `main`
+   - Check the Actions tab to see deployment status
+   - Your site will be available at: `https://yourusername.github.io/Hervine/`
+
+### Environment Variables for Production:
+
+For production deployment, you'll need to set environment variables as GitHub Secrets:
+- Go to Settings → Secrets and variables → Actions
+- Add secrets: `VITE_VAPI_API_KEY`, `VITE_VAPI_ASSISTANT_ID`, `VITE_VAPI_PASSWORD`
+- Update the workflow file to use these secrets if needed

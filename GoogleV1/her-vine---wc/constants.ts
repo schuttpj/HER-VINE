@@ -18,29 +18,29 @@ export const SERVICES: ServiceItem[] = [
   {
     id: '01',
     title: 'Vineyard Walks',
-    description: 'Immerse yourself in the terroir of Hermanus. Guided walks through the vines where the ocean breeze meets the soil.',
-    image: 'https://images.unsplash.com/photo-1533052448348-18e38525b597?q=80&w=2000&auto=format&fit=crop', // Vineyard closeup
+    description: 'Immerse yourself in the terroir of the Hemel-en-Aarde Valley. Guided walks through the vines where the ocean breeze meets the mountain slopes.',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2000&auto=format&fit=crop', // Wine barrels in cellar
     cta: 'Explore'
   },
   {
     id: '02',
-    title: 'Tasting Room',
-    description: 'An intimate setting designed for sensory awakening. Sample our curated selection of Syrah and Pinot Noir.',
-    image: 'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=2000&auto=format&fit=crop', // Pouring wine
-    cta: 'View Menu'
+    title: 'Curated Tastings',
+    description: 'Unique vertical and cross-tastings, comparing Chenin from different terroirs or contrasting varietals. An intellectual journey through taste.',
+    image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?q=80&w=2000&auto=format&fit=crop', // Multiple wine glasses for tasting comparison
+    cta: 'Discover'
   },
   {
     id: '03',
-    title: 'Culinary Pairing',
-    description: 'Farm-to-table accompaniments sourced from the Hemel-en-Aarde valley, designed to elevate every sip.',
-    image: 'https://images.unsplash.com/photo-1452251889946-8ff5ea7b27ab?q=80&w=2000&auto=format&fit=crop', // Earthy food/bread
+    title: 'Wine & Terroir Pairings',
+    description: 'From Bosman\'s wine and flower pairings to Spookfontein\'s architectural tours. Experience wine through unique lenses—botanical, architectural, or culinary.',
+    image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=2000&auto=format&fit=crop', // Wine and cheese pairing board
     cta: 'Taste'
   },
   {
     id: '04',
-    title: 'Private Events',
-    description: 'Exclusive access to our cellar and grounds for weddings, private gatherings, and sunset soirées.',
-    image: 'https://images.unsplash.com/photo-1522448763697-39857d4cc455?q=80&w=2000&auto=format&fit=crop', // Gathering outdoors
+    title: 'Exclusive Estates',
+    description: 'Private access to exclusive wine farms in the Hemel-en-Aarde Valley. By appointment only, these hidden gems offer intimate, world-class experiences.',
+    image: 'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&w=2000&auto=format&fit=crop', // Elegant wine cellar with barrels and bottles
     cta: 'Inquire'
   }
 ];

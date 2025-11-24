@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { NAV_ITEMS } from '../constants';
+import VapiWidget from './VapiWidget';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,6 +71,13 @@ const Navbar: React.FC = () => {
             >
               Book Tasting
             </a>
+            
+            {import.meta.env.VITE_VAPI_API_KEY && import.meta.env.VITE_VAPI_ASSISTANT_ID && (
+              <VapiWidget 
+                apiKey={import.meta.env.VITE_VAPI_API_KEY}
+                assistantId={import.meta.env.VITE_VAPI_ASSISTANT_ID}
+              />
+            )}
             
             <button 
               className="lg:hidden"

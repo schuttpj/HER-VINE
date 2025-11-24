@@ -31,6 +31,7 @@
               'fade-in-up': 'fadeSlideIn 1s ease-out forwards',
               'slide-in-left': 'slideInLeft 1s ease-out forwards',
               'slide-in-right': 'slideInRight 1s ease-out forwards',
+              'pulse-ring': 'pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }
           }
         }
@@ -72,6 +73,17 @@
       @keyframes scrollBlur {
         from { filter: blur(0px); transform: scale(1); }
         to { filter: blur(10px); transform: scale(1.05); }
+      }
+      @keyframes pulseRing {
+        0% {
+          box-shadow: 0 0 0 0 rgba(188, 108, 37, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(188, 108, 37, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(188, 108, 37, 0);
+        }
       }
 
       /* Utility for animations triggering */
