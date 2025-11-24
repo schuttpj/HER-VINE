@@ -67,7 +67,6 @@ const Hero: React.FC = () => {
               src="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&w=2400&auto=format&fit=crop" 
               alt="Woman in Vineyard" 
               className="w-full h-full object-cover object-center"
-              style={{ animation: 'scrollBlur linear both', animationTimeline: 'view()', animationRange: 'entry 100% entry 150%' }}
             />
         </div>
 
