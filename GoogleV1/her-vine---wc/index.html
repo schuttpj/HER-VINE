@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Her Vine | Hermanus Wine Experience</title>
+    <meta name="description" content="A unique and special wine tasting experience in Hermanus South Africa." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Cormorant Garamond"', 'serif'],
+              sans: ['"Montserrat"', 'sans-serif'],
+            },
+            colors: {
+              'hv-cream': '#F5F2EB', // Warm background
+              'hv-stone': '#E6E2DD', // Secondary background
+              'hv-olive': '#606C38', // Muted green
+              'hv-terracotta': '#BC6C25', // Warm earth orange
+              'hv-wine': '#5E2C2C', // Deep red
+              'hv-charcoal': '#282828', // Text
+              'hv-earth': '#8B7355', // Brown tones
+            },
+            animation: {
+              'scroll-blur': 'scrollBlur linear both',
+              'fade-in-up': 'fadeSlideIn 1s ease-out forwards',
+              'slide-in-left': 'slideInLeft 1s ease-out forwards',
+              'slide-in-right': 'slideInRight 1s ease-out forwards',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #F5F2EB;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #D4C5B0;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #8B7355;
+      }
+      
+      .text-balance {
+        text-wrap: balance;
+      }
+
+      /* Animation Keyframes from Template */
+      @keyframes fadeSlideIn {
+        0% { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+        100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }
+      @keyframes slideInLeft {
+        0% { opacity: 0; transform: translateX(-30px); filter: blur(10px); }
+        100% { opacity: 1; transform: translateX(0); filter: blur(0px); }
+      }
+      @keyframes slideInRight {
+        0% { opacity: 0; transform: translateX(30px); filter: blur(10px); }
+        100% { opacity: 1; transform: translateX(0); filter: blur(0px); }
+      }
+      @keyframes scrollBlur {
+        from { filter: blur(0px); transform: scale(1); }
+        to { filter: blur(10px); transform: scale(1.05); }
+      }
+
+      /* Utility for animations triggering */
+      .animate-paused {
+        animation-play-state: paused;
+      }
+      .animate-running {
+        animation-play-state: running;
+      }
+      .opacity-0-start {
+        opacity: 0;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-hv-cream text-hv-charcoal antialiased selection:bg-hv-terracotta selection:text-white">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

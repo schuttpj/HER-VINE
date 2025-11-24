@@ -1,0 +1,917 @@
+<html lang="en" class="scroll-smooth"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HER VINE - Hemel-en-Aarde Valley Wine Journeys</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+tailwind.config = {
+darkMode: 'media',
+theme: {
+extend: {
+fontFamily: {
+sans: ['Montserrat', 'sans-serif'],
+serif: ['Playfair Display', 'serif'],
+},
+colors: {
+stone: {
+50: '#fafaf9',
+100: '#f5f5f4',
+200: '#e7e5e4',
+300: '#d6d3d1',
+400: '#a8a29e',
+500: '#78716c',
+600: '#57534e',
+700: '#44403c',
+800: '#292524',
+900: '#1c1917',
+},
+rust: {
+400: '#C17A5F',
+500: '#A65D40',
+600: '#8B4E35',
+700: '#6F3E2A',
+},
+olive: {
+500: '#707F5A',
+600: '#5F6F52',
+700: '#4E5C44',
+},
+charcoal: {
+800: '#3A302A',
+900: '#2C221C',
+},
+},
+animation: {
+'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+'fade-in': 'fadeIn 1s ease-out both',
+'blur-in': 'blurIn 0.8s ease-out both',
+'zoom-slow': 'zoomSlow 20s linear infinite alternate',
+},
+keyframes: {
+fadeInUp: {
+'0%': { opacity: '0', transform: 'translateY(30px)' },
+'100%': { opacity: '1', transform: 'translateY(0)' },
+},
+fadeIn: {
+'0%': { opacity: '0' },
+'100%': { opacity: '1' },
+},
+blurIn: {
+'0%': { opacity: '0', filter: 'blur(10px)' },
+'100%': { opacity: '1', filter: 'blur(0)' },
+},
+zoomSlow: {
+'0%': { transform: 'scale(1)' },
+'100%': { transform: 'scale(1.1)' },
+}
+}
+}
+}
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+body {
+font-family: 'Montserrat', sans-serif;
+}
+h1, h2, h3, h4 {
+font-family: 'Playfair Display', serif;
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+width: 6px;
+}
+::-webkit-scrollbar-track {
+background: transparent;
+}
+::-webkit-scrollbar-thumb {
+background-color: #a8a29e;
+border-radius: 20px;
+}
+.dark ::-webkit-scrollbar-thumb {
+background-color: #57534e;
+}
+/* Hide scrollbar for horizontal scroll areas */
+.no-scrollbar::-webkit-scrollbar {
+display: none;
+}
+.no-scrollbar {
+-ms-overflow-style: none;
+scrollbar-width: none;
+}
+/* Comparison Slider Styles */
+.comparison-slider {
+position: relative;
+width: 100%;
+overflow: hidden;
+}
+.comparison-item {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+overflow: hidden;
+}
+.comparison-handle {
+position: absolute;
+top: 0;
+bottom: 0;
+width: 2px;
+background: #fff;
+cursor: col-resize;
+z-index: 10;
+}
+.comparison-circle {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 40px;
+height: 40px;
+background: #fff;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+color: #333;
+}
+/* Animation Observer Classes */
+.reveal-on-scroll {
+opacity: 0;
+filter: blur(5px);
+transform: translateY(20px);
+transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+}
+.reveal-on-scroll.is-visible {
+opacity: 1;
+filter: blur(0);
+transform: translateY(0);
+}
+/* Modern Glass Utilities */
+.glass-panel {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.glass-card-hover {
+transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-card-hover:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+}
+</style></head>
+<body class="bg-stone-50 text-charcoal-900 dark:bg-charcoal-900 dark:text-stone-100 transition-colors duration-300">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="absolute inset-0 bg-stone-50/0 dark:bg-charcoal-900/0 backdrop-blur-none border-b border-transparent transition-all duration-300" id="nav-bg"></div>
+        <div class="relative flex h-24 max-w-7xl mr-auto ml-auto pr-6 pl-6 items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 text-white" id="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M6 8l6-6 6 6M6 16l6 6 6-6"></path></svg>
+                </div>
+                <span class="font-serif text-lg tracking-tight font-medium text-white group-hover:opacity-80 transition-opacity" id="logo-text">HER VINE</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-white/80" id="nav-links">
+                <a href="#journeys" class="hover:text-white transition-colors">Journeys</a>
+                <a href="#philosophy" class="hover:text-white transition-colors">Philosophy</a>
+                <a href="#stories" class="hover:text-white transition-colors">Stories</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <!-- CTA -->
+            <div class="hidden md:block">
+                <a href="#booking" class="bg-white text-charcoal-900 px-5 py-2.5 rounded-full text-xs font-medium tracking-wide hover:bg-stone-100 transition-colors">
+                    Book Journey
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2 text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu w-6 h-6"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-24 left-0 w-full bg-stone-50 dark:bg-charcoal-900 border-b border-stone-200 dark:border-stone-800 p-6 flex flex-col gap-4 md:hidden">
+            <a href="#journeys" class="text-lg font-serif text-charcoal-900 dark:text-white">Journeys</a>
+            <a href="#philosophy" class="text-lg font-serif text-charcoal-900 dark:text-white">Philosophy</a>
+            <a href="#booking" class="text-lg font-serif text-rust-500">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-screen min-h-[750px] overflow-hidden bg-charcoal-900">
+        <!-- Background Image with Slow Zoom -->
+        <div class="absolute inset-0 w-full h-full animate-zoom-slow">
+            <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=2500&auto=format&fit=crop" alt="Hemel-en-Aarde Valley" class="w-full h-full object-cover opacity-80">
+            <!-- Gradient Overlays for readability and style -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-charcoal-900"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+        </div>
+
+        <!-- Main Content Container -->
+        <div class="relative z-10 h-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
+            
+            <!-- Typography & CTA Block -->
+            <div class="max-w-2xl mt-16">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-8 animate-fade-in-up" style="animation-delay: 100ms;">
+                    <div class="w-1.5 h-1.5 rounded-full bg-rust-500 animate-pulse"></div>
+                    <span class="text-[10px] uppercase tracking-widest text-stone-300 font-medium">Season 2025: Bookings Open</span>
+                </div>
+
+                <!-- Headline -->
+                <h1 class="text-6xl md:text-8xl font-serif text-white leading-[0.9] tracking-tight mb-8 animate-fade-in-up" style="animation-delay: 200ms;">
+                    The Intellectual <br>
+                    <span class="italic font-light text-white/80">Pour</span>
+                </h1>
+
+                <!-- Subtext -->
+                <p class="text-lg text-stone-300 font-light max-w-md mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 300ms;">
+                    Curated wine journeys in the Hemel-en-Aarde Valley. Where architecture, botany, and the art of winemaking converge.
+                </p>
+
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up" style="animation-delay: 400ms;">
+                    <a href="#booking" class="w-full sm:w-auto px-8 py-4 bg-white text-charcoal-900 rounded-full text-sm font-semibold hover:bg-stone-100 transition-colors text-center">
+                        Book a Journey
+                    </a>
+                    <a href="#journeys" class="w-full sm:w-auto px-8 py-4 glass-panel text-white rounded-full text-sm font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-2 group">
+                        Explore Experiences
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Floating Card Element (Desktop Only) -->
+            <div class="hidden lg:block absolute right-6 bottom-32 animate-fade-in-up" style="animation-delay: 600ms;">
+                <div class="glass-panel p-6 rounded-2xl max-w-xs backdrop-blur-xl border border-white/10">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-medium text-stone-400 uppercase tracking-wider">Current Terroir</span>
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-2 h-2 rounded-full bg-olive-600"></div>
+                            <span class="text-[10px] text-stone-400">Cool Climate</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-serif text-white mb-1">Cool & Misty</h3>
+                    <p class="text-xs text-stone-400 mb-4">Perfect conditions for Pinot Noir and Chardonnay. Morning fog blankets the valley.</p>
+                    <div class="flex items-center gap-2 text-xs text-rust-400">
+                        <div class="w-1.5 h-1.5 rounded-full bg-rust-500"></div>
+                        Harvest Status: Active
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-pulse">
+                <span class="text-[10px] uppercase tracking-widest text-white">Scroll</span>
+                <div class="w-px h-12 bg-gradient-to-b from-white to-transparent"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- The 3 Pillars -->
+    <section id="journeys" class="py-24 px-6 bg-stone-50 dark:bg-charcoal-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-on-scroll">
+                <div>
+                    <h2 class="text-3xl md:text-4xl mb-2 tracking-tight">Our Journeys</h2>
+                    <p class="text-stone-600 dark:text-stone-400 text-sm font-light">Three pillars of intellectual exploration.</p>
+                </div>
+                <a href="#experiences" class="hidden md:flex items-center gap-2 text-sm font-medium hover:text-rust-500 transition-colors mt-4 md:mt-0">
+                    View All Experiences <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pillar 1: Architecture -->
+                <div class="group cursor-pointer reveal-on-scroll delay-100">
+                    <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-stone-200 dark:bg-stone-800">
+                        <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1000&auto=format&fit=crop" alt="The Architect" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl mb-1 font-serif italic">The Architect</h3>
+                            <p class="text-stone-600 dark:text-stone-400 text-xs">Design meets Terroir</p>
+                        </div>
+                        <span class="text-sm font-medium">Full Day</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Botany -->
+                <div class="group cursor-pointer reveal-on-scroll delay-200">
+                    <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-stone-200 dark:bg-stone-800">
+                        <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=1000&auto=format&fit=crop" alt="The Botanist" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl mb-1 font-serif italic">The Botanist</h3>
+                            <p class="text-stone-600 dark:text-stone-400 text-xs">Wine &amp; Flora Pairings</p>
+                        </div>
+                        <span class="text-sm font-medium">Half Day</span>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Exclusive Access -->
+                <div class="group cursor-pointer reveal-on-scroll delay-300">
+                    <div class="aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-stone-200 dark:bg-stone-800">
+                        <img src="https://images.unsplash.com/photo-1547013298-d21be4351c88?q=80&w=1000&auto=format&fit=crop" alt="Private Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl mb-1 font-serif italic">The Private Collection</h3>
+                            <p class="text-stone-600 dark:text-stone-400 text-xs">Closed-door Estates</p>
+                        </div>
+                        <span class="text-sm font-medium">Bespoke</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy: Nature vs Structure -->
+    <section id="philosophy" class="py-24 px-6 bg-stone-100 dark:bg-charcoal-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 text-center reveal-on-scroll">
+                <span class="text-rust-500 text-xs font-bold tracking-widest uppercase mb-2 block">Our Philosophy</span>
+                <h2 class="text-3xl md:text-4xl tracking-tight">Terroir / Design</h2>
+            </div>
+
+            <!-- Nature vs Structure Slider -->
+            <div class="max-w-4xl mx-auto mb-24 reveal-on-scroll">
+                <div class="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl comparison-slider" id="comparisonSlider">
+                    <!-- Structure Image (Base) -->
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="Design">
+                    <span class="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 text-xs rounded backdrop-blur-sm">DESIGN</span>
+
+                    <!-- Nature Image (Overlay) -->
+                    <div class="comparison-item" id="comparisonOverlay" style="width: 50%;">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2000&auto=format&fit=crop" class="absolute top-0 left-0 h-full max-w-none w-[100vw] md:w-[64rem] lg:w-[56rem] object-cover" id="comparisonImageBefore" alt="Terroir">
+                        <span class="absolute top-4 left-4 bg-black/50 text-white px-2 py-1 text-xs rounded backdrop-blur-sm">TERROIR</span>
+                    </div>
+
+                    <!-- Handle -->
+                    <div class="comparison-handle" id="comparisonHandle" style="left: 50%;">
+                        <div class="comparison-circle bg-white text-rust-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-left-right" class="lucide lucide-chevrons-left-right w-5 h-5"><path d="m9 7-5 5 5 5"></path><path d="m15 7 5 5-5 5"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-stone-500 mt-4">Drag to explore the balance between raw landscape and human craft</p>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                <!-- Item 1 -->
+                <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-serif text-xl italic">Pinot Noir</span>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll delay-100">
+                    <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                </div>
+                 <!-- Item 3 -->
+                 <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                </div>
+                <!-- Item 4 -->
+                <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll delay-100">
+                    <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                </div>
+                <!-- Item 5 -->
+                <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll">
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                </div>
+                 <!-- Item 6 -->
+                 <div class="break-inside-avoid rounded-xl overflow-hidden relative group reveal-on-scroll delay-100">
+                    <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=800&auto=format&fit=crop" class="w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Menu (Split Layout) -->
+    <section class="py-24 px-6 bg-stone-50 dark:bg-charcoal-900 border-t border-stone-200 dark:border-stone-800" id="experiences">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-20">
+                
+                <!-- Sticky Left Column: Visual Anchor -->
+                <div class="lg:col-span-5 relative">
+                    <div class="sticky top-32 flex flex-col gap-6 reveal-on-scroll">
+                        <div class="relative aspect-[3/4] w-full rounded-3xl overflow-hidden shadow-2xl">
+                            <!-- Dynamic Image Card -->
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1200&auto=format&fit=crop" alt="Valley Map" class="absolute inset-0 w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                            
+                            <!-- Card Content -->
+                            <div class="absolute bottom-0 left-0 p-8 w-full">
+                                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl">
+                                    <h3 class="text-2xl font-serif text-white italic mb-2">The Valley</h3>
+                                    <p class="text-white/80 text-xs font-light leading-relaxed mb-4">
+                                        From Spookfontein's concrete and glass to Bosman's indigenous fynbos gardens, each estate tells a story of place and philosophy.
+                                    </p>
+                                    <a href="#booking" class="inline-flex items-center gap-2 text-white text-xs font-medium tracking-wide uppercase hover:text-rust-400 transition-colors">
+                                        Design Your Journey <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Experience Menu -->
+                <div class="lg:col-span-7">
+                    <div class="flex flex-col gap-16">
+                        
+                        <!-- Header -->
+                        <div class="flex flex-col gap-2 border-b border-stone-200 dark:border-stone-800 pb-8 reveal-on-scroll">
+                            <span class="text-rust-500 font-bold text-[10px] tracking-[0.2em] uppercase">Experience Menu</span>
+                            <h2 class="text-4xl md:text-5xl font-serif text-charcoal-900 dark:text-white">Curated Journeys</h2>
+                        </div>
+
+                        <!-- Category: Wine Education -->
+                        <div class="reveal-on-scroll delay-100">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-8 h-8 rounded-full bg-rust-50 dark:bg-rust-900/30 flex items-center justify-center text-rust-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wine"><path d="M8 22h8"></path><path d="M7 10h10"></path><path d="M12 15v7"></path><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-medium tracking-tight">Wine Education</h3>
+                            </div>
+                            
+                            <div class="grid gap-3">
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">Vertical Masterclass</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">R2,800</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">Comparative tasting of 5 vintages from a single estate.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">180m</span>
+                                    </div>
+                                </div>
+
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">The Botanical Walk</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">R1,500</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">Vineyard tour with indigenous fynbos identification.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">120m</span>
+                                    </div>
+                                </div>
+
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">Cellar Door Access</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">R3,500</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">Private tasting with winemaker at invitation-only estates.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">240m</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Category: Architecture -->
+                        <div class="reveal-on-scroll delay-200">
+                             <div class="flex items-center gap-4 mb-6">
+                                <div class="w-8 h-8 rounded-full bg-olive-50 dark:bg-olive-900/30 flex items-center justify-center text-olive-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building-2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-medium tracking-tight">Architecture &amp; Design</h3>
+                            </div>
+
+                            <div class="grid gap-3">
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">The Architect's Tour</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">R4,200</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">Spookfontein and modernist wineries with architectural commentary.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">300m</span>
+                                    </div>
+                                </div>
+
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">Full Immersion Day</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">R6,800</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">All three pillars: Architecture, Botany, and Private Access.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">480m</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Category: Stay -->
+                         <div class="reveal-on-scroll delay-200">
+                             <div class="flex items-center gap-4 mb-6">
+                                <div class="w-8 h-8 rounded-full bg-stone-200 dark:bg-stone-800 flex items-center justify-center text-stone-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                </div>
+                                <h3 class="text-xl font-medium tracking-tight">The Residence</h3>
+                            </div>
+
+                            <div class="grid gap-3">
+                                <!-- Item -->
+                                <div class="group relative p-5 rounded-2xl bg-stone-100 dark:bg-stone-800/50 border border-transparent hover:bg-white hover:border-stone-200 dark:hover:bg-stone-800 dark:hover:border-stone-700 transition-all duration-300 glass-card-hover cursor-default">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-base font-medium text-charcoal-900 dark:text-white">Airbnb Partnership</span>
+                                        <span class="text-sm font-medium text-charcoal-900 dark:text-white">Add-on</span>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <p class="text-xs text-stone-600 dark:text-stone-400 font-light max-w-[80%]">Extend your stay with curated accommodations in the valley.</p>
+                                        <span class="text-[10px] text-stone-500 font-mono">Variable</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking System -->
+    <section id="booking" class="py-24 px-6 bg-charcoal-900 text-white dark:bg-black relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-rust-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-olive-600/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Booking Header -->
+                <div class="lg:col-span-4 flex flex-col justify-center reveal-on-scroll">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-6">Reserve Your <br><span class="text-rust-400 italic">Journey</span></h2>
+                    <p class="text-stone-400 mb-8 font-light">Select your preferred experience and date. All bookings include complimentary transport within the valley.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 text-sm text-stone-300">
+                            <div class="p-2 rounded-full bg-white/5 border border-white/10"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check w-4 h-4"><path d="M20 6 9 17l-5-5"></path></svg></div>
+                            <span>Expert Sommelier Guide</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-stone-300">
+                            <div class="p-2 rounded-full bg-white/5 border border-white/10"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar w-4 h-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg></div>
+                            <span>48h Cancellation Policy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking UI -->
+                <div class="lg:col-span-8 bg-stone-50 dark:bg-charcoal-800 rounded-3xl p-6 md:p-8 shadow-2xl text-charcoal-900 dark:text-white reveal-on-scroll delay-200">
+                    <!-- Step Indicators -->
+                    <div class="flex items-center gap-4 mb-8 text-xs font-bold tracking-widest uppercase text-stone-500">
+                        <span class="text-rust-500">01. Journey</span>
+                        <span class="w-8 h-px bg-stone-300 dark:bg-stone-700"></span>
+                        <span class="">02. Date</span>
+                        <span class="w-8 h-px bg-stone-300 dark:bg-stone-700"></span>
+                        <span class="">03. Details</span>
+                    </div>
+
+                    <!-- Step 1: Journey Selection -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <button class="text-left p-4 rounded-xl border-2 border-rust-500 bg-rust-50/50 dark:bg-rust-900/20 relative">
+                            <div class="absolute top-3 right-3 text-rust-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check-circle-2" class="lucide lucide-check-circle-2 w-5 h-5"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg></div>
+                            <span class="block font-medium text-sm mb-1">Full Immersion Day</span>
+                            <span class="block text-xs text-stone-600 dark:text-stone-400">8 hours • R6,800</span>
+                        </button>
+                        <button class="text-left p-4 rounded-xl border border-stone-300 dark:border-stone-700 hover:border-rust-400 transition-colors">
+                            <span class="block font-medium text-sm mb-1">The Architect's Tour</span>
+                            <span class="block text-xs text-stone-600 dark:text-stone-400">5 hours • R4,200</span>
+                        </button>
+                        <button class="text-left p-4 rounded-xl border border-stone-300 dark:border-stone-700 hover:border-rust-400 transition-colors">
+                            <span class="block font-medium text-sm mb-1">Vertical Masterclass</span>
+                            <span class="block text-xs text-stone-600 dark:text-stone-400">3 hours • R2,800</span>
+                        </button>
+                        <button class="text-left p-4 rounded-xl border border-stone-300 dark:border-stone-700 hover:border-rust-400 transition-colors">
+                            <span class="block font-medium text-sm mb-1">Private Cellar Access</span>
+                            <span class="block text-xs text-stone-600 dark:text-stone-400">4 hours • R3,500</span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Date & Time -->
+                    <div class="mb-8">
+                        <h4 class="text-sm font-medium mb-4">Select Date &amp; Time</h4>
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <!-- Calendar Visual -->
+                            <div class="flex-1 bg-stone-100 dark:bg-charcoal-900 rounded-xl p-4">
+                                <div class="flex justify-between mb-4 text-sm font-medium">
+                                    <span>March 2025</span>
+                                    <div class="flex gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left w-4 h-4 cursor-pointer"><path d="m15 18-6-6 6-6"></path></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-4 h-4 cursor-pointer"><path d="m9 18 6-6-6-6"></path></svg>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-2 text-center text-xs text-stone-500 mb-2">
+                                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                                </div>
+                                <div class="grid grid-cols-7 gap-2 text-center text-xs font-medium">
+                                    <span class="text-stone-400">26</span><span class="text-stone-400">27</span><span>1</span><span>2</span><span class="bg-rust-500 text-white rounded-full w-6 h-6 flex items-center justify-center mx-auto shadow-lg shadow-rust-500/40">3</span><span>4</span><span>5</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Times -->
+                            <div class="flex-1 grid grid-cols-2 gap-2 content-start">
+                                <button class="py-2 px-3 rounded-lg text-xs border border-stone-300 dark:border-stone-700 hover:bg-rust-50 dark:hover:bg-white/5">09:00</button>
+                                <button class="py-2 px-3 rounded-lg text-xs bg-charcoal-900 text-white dark:bg-white dark:text-charcoal-900 shadow-md">10:30</button>
+                                <button class="py-2 px-3 rounded-lg text-xs border border-stone-300 dark:border-stone-700 hover:bg-rust-50 dark:hover:bg-white/5">13:00</button>
+                                <button class="py-2 px-3 rounded-lg text-xs border border-stone-300 dark:border-stone-700 hover:bg-rust-50 dark:hover:bg-white/5">15:00</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action -->
+                    <button class="w-full py-4 bg-charcoal-900 text-white dark:bg-white dark:text-charcoal-900 rounded-xl font-medium text-sm hover:opacity-90 transition-opacity shadow-lg">
+                        Confirm Booking
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="stories" class="py-24 bg-stone-50 dark:bg-charcoal-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-end justify-between mb-12 reveal-on-scroll">
+                <h2 class="text-3xl font-serif">Traveler Stories</h2>
+                <div class="flex gap-2">
+                    <button class="p-2 rounded-full border border-stone-300 hover:bg-stone-100 dark:border-stone-700 dark:hover:bg-stone-800 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-left" class="lucide lucide-arrow-left w-5 h-5"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    </button>
+                    <button class="p-2 rounded-full border border-stone-300 hover:bg-stone-100 dark:border-stone-700 dark:hover:bg-stone-800 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-right" class="lucide lucide-arrow-right w-5 h-5"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-8 reveal-on-scroll delay-100">
+                <!-- Review 1 -->
+                <div class="min-w-[300px] md:min-w-[400px] bg-stone-100 dark:bg-charcoal-800 p-8 rounded-2xl snap-center">
+                    <div class="flex gap-1 text-rust-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                    </div>
+                    <p class="text-lg font-serif italic mb-6 text-stone-700 dark:text-stone-300">"A sophisticated look at South African wine. The architectural tour was like nothing I'd experienced before."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-stone-300 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Claire Rousseau</p>
+                            <p class="text-xs text-stone-500">Paris, France</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="min-w-[300px] md:min-w-[400px] bg-stone-100 dark:bg-charcoal-800 p-8 rounded-2xl snap-center">
+                    <div class="flex gap-1 text-rust-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                    </div>
+                    <p class="text-lg font-serif italic mb-6 text-stone-700 dark:text-stone-300">"Not your average wine tasting. The botanical walk opened my eyes to the unique ecosystem of the region."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-stone-300 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Marcus Weber</p>
+                            <p class="text-xs text-stone-500">Berlin, Germany</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="min-w-[300px] md:min-w-[400px] bg-stone-100 dark:bg-charcoal-800 p-8 rounded-2xl snap-center">
+                    <div class="flex gap-1 text-rust-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="star" class="lucide lucide-star w-4 h-4 fill-current"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+                    </div>
+                    <p class="text-lg font-serif italic mb-6 text-stone-700 dark:text-stone-300">"The private cellar access was extraordinary. Tasting library vintages directly with the winemaker—priceless."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-stone-300 rounded-full overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Yuki Tanaka</p>
+                            <p class="text-xs text-stone-500">Tokyo, Japan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Contact -->
+    <footer id="contact" class="bg-charcoal-900 text-stone-300 py-20 px-6 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- Brand -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-2 text-rust-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M6 8l6-6 6 6M6 16l6 6 6-6"></path></svg>
+                    <span class="font-serif text-xl text-white tracking-tight">HER VINE</span>
+                </div>
+                <p class="text-xs text-stone-500 font-light leading-relaxed max-w-xs">
+                    Intellectual wine journeys in the Hemel-en-Aarde Valley. Where architecture, botany, and terroir converge.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="instagram" class="lucide lucide-instagram w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
+                    <a href="#" class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="facebook" class="lucide lucide-facebook w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="#" class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="twitter" class="lucide lucide-twitter w-5 h-5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-white font-medium mb-6 text-sm">Explore</h4>
+                <ul class="space-y-3 text-xs font-light">
+                    <li><a href="#" class="hover:text-rust-400 transition-colors">About HER VINE</a></li>
+                    <li><a href="#journeys" class="hover:text-rust-400 transition-colors">Our Journeys</a></li>
+                    <li><a href="#philosophy" class="hover:text-rust-400 transition-colors">Philosophy</a></li>
+                    <li><a href="#booking" class="hover:text-rust-400 transition-colors">Book Experience</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="text-white font-medium mb-6 text-sm">Contact</h4>
+                <ul class="space-y-3 text-xs font-light">
+                    <li class="flex gap-2 items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="map-pin" class="lucide lucide-map-pin w-4 h-4 shrink-0 mt-0.5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span>Hemel-en-Aarde Valley, Hermanus, South Africa</span>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail w-4 h-4 shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        <span>journeys@hervine.co.za</span>
+                    </li>
+                    <li class="flex gap-2 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone w-4 h-4 shrink-0"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>
+                        <span>+27 28 316 3988</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Partners -->
+            <div>
+                <h4 class="text-white font-medium mb-6 text-sm">Partners</h4>
+                <div class="space-y-3 text-xs font-light">
+                    <p class="text-stone-500">Collaborating with leading estates:</p>
+                    <ul class="space-y-2">
+                        <li>• Spookfontein</li>
+                        <li>• Bosman Family Vineyards</li>
+                        <li>• Hamilton Russell Vineyards</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-stone-800 flex flex-col md:flex-row justify-between items-center text-xs text-stone-600">
+            <p>© 2025 HER VINE. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons({
+            attrs: {
+                'stroke-width': 1.5
+            }
+        });
+
+        // Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        const navBg = document.getElementById('nav-bg');
+        const logoText = document.getElementById('logo-text');
+        const navLinks = document.getElementById('nav-links');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navBg.classList.remove('bg-stone-50/0', 'dark:bg-charcoal-900/0');
+                navBg.classList.add('bg-stone-50/90', 'dark:bg-charcoal-900/90', 'backdrop-blur-md', 'border-b', 'border-stone-200', 'dark:border-stone-800');
+                
+                if (!document.documentElement.classList.contains('dark')) {
+                     logoText.classList.remove('text-white');
+                     logoText.classList.add('text-charcoal-900');
+                     
+                     Array.from(navLinks.children).forEach(link => {
+                         link.classList.remove('text-white/80', 'hover:text-white');
+                         link.classList.add('text-stone-600', 'hover:text-charcoal-900');
+                     });
+                }
+            } else {
+                navBg.classList.add('bg-stone-50/0', 'dark:bg-charcoal-900/0');
+                navBg.classList.remove('bg-stone-50/90', 'dark:bg-charcoal-900/90', 'backdrop-blur-md', 'border-b', 'border-stone-200', 'dark:border-stone-800');
+                
+                if (!document.documentElement.classList.contains('dark')) {
+                     logoText.classList.add('text-white');
+                     logoText.classList.remove('text-charcoal-900');
+                     
+                     Array.from(navLinks.children).forEach(link => {
+                         link.classList.add('text-white/80', 'hover:text-white');
+                         link.classList.remove('text-stone-600', 'hover:text-charcoal-900');
+                     });
+                }
+            }
+        });
+
+        // Terroir/Design Comparison Slider
+        const slider = document.getElementById('comparisonSlider');
+        const overlay = document.getElementById('comparisonOverlay');
+        const handle = document.getElementById('comparisonHandle');
+        const beforeImg = document.getElementById('comparisonImageBefore');
+        let isDown = false;
+
+        function updateSlider(x) {
+            if (!slider) return;
+            const rect = slider.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            
+            if (position < 0) position = 0;
+            if (position > 100) position = 100;
+
+            overlay.style.width = `${position}%`;
+            handle.style.left = `${position}%`;
+        }
+
+        if (slider) {
+            slider.addEventListener('mousedown', () => isDown = true);
+            window.addEventListener('mouseup', () => isDown = false);
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                updateSlider(e.clientX);
+            });
+
+            slider.addEventListener('touchstart', () => isDown = true);
+            window.addEventListener('touchend', () => isDown = false);
+            slider.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                updateSlider(e.touches[0].clientX);
+            });
+            
+            const resizeImg = () => {
+                const width = slider.getBoundingClientRect().width;
+                if(beforeImg) beforeImg.style.width = width + 'px';
+            };
+            window.addEventListener('resize', resizeImg);
+            setTimeout(resizeImg, 100);
+        }
+
+    </script>
+
+</body></html>
