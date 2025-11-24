@@ -33,6 +33,24 @@ jobs:
         working-directory: GoogleV1/her-vine---wc
         run: npm ci
 
+      - name: Verify environment variables
+        working-directory: GoogleV1/her-vine---wc
+        run: |
+          if [ -z "${{ secrets.VITE_VAPI_API_KEY }}" ]; then
+            echo "❌ VITE_VAPI_API_KEY is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.VITE_VAPI_ASSISTANT_ID }}" ]; then
+            echo "❌ VITE_VAPI_ASSISTANT_ID is not set"
+            exit 1
+          fi
+          echo "✓ Environment variables are set"
+          echo "API_KEY length: ${#VITE_VAPI_API_KEY}"
+          echo "ASSISTANT_ID length: ${#VITE_VAPI_ASSISTANT_ID}"
+        env:
+          VITE_VAPI_API_KEY: ${{ secrets.VITE_VAPI_API_KEY }}
+          VITE_VAPI_ASSISTANT_ID: ${{ secrets.VITE_VAPI_ASSISTANT_ID }}
+
       - name: Build
         working-directory: GoogleV1/her-vine---wc
         run: npm run build
