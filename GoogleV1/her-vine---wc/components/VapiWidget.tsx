@@ -109,18 +109,33 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
   };
 
   return (
-    <div className="relative">
-      <button
-        ref={buttonRef}
-        onClick={isConnected ? endCall : handleStartClick}
-        className={`${mobile ? 'w-full inline-flex' : 'hidden sm:inline-flex'} items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border relative ${
-          isConnected
-            ? 'bg-hv-earth text-white border-transparent hover:bg-hv-earth animate-pulse-ring'
-            : 'bg-hv-terracotta text-white border-transparent hover:bg-hv-earth'
-        }`}
-      >
-        {isConnected ? 'End Call' : 'Talk to Assistant'}
-      </button>
+    <>
+      {/* Floating End Call button for mobile when connected */}
+      {isConnected && mobile && (
+        <button
+          onClick={endCall}
+          className="fixed left-1/2 -translate-x-1/2 z-[60] max-w-xs w-[calc(100%-2rem)] inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border bg-hv-earth text-white border-transparent hover:bg-hv-earth/90 animate-pulse-ring shadow-lg"
+          style={{
+            top: 'calc(env(safe-area-inset-top, 0px) + 1rem)',
+          }}
+        >
+          End Call
+        </button>
+      )}
+
+      {/* Regular button - hidden on mobile when connected, shown otherwise */}
+      <div className="relative">
+        <button
+          ref={buttonRef}
+          onClick={isConnected ? endCall : handleStartClick}
+          className={`${mobile && isConnected ? 'hidden' : mobile ? 'w-full inline-flex' : 'hidden sm:inline-flex'} items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border relative ${
+            isConnected
+              ? 'bg-hv-earth text-white border-transparent hover:bg-hv-earth animate-pulse-ring'
+              : 'bg-hv-terracotta text-white border-transparent hover:bg-hv-earth'
+          }`}
+        >
+          {isConnected ? 'End Call' : 'Talk to Assistant'}
+        </button>
 
       {/* Password Modal - Small glass effect popup */}
       {showPasswordModal && (
@@ -204,7 +219,8 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
           </div>
         </>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 
