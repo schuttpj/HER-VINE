@@ -53,7 +53,7 @@ This project is configured for automatic deployment to GitHub Pages.
 4. **Automatic Deployment:**
    - The GitHub Actions workflow will automatically build and deploy on every push to `main`
    - Check the Actions tab to see deployment status
-   - Your site will be available at: `https://yourusername.github.io/Hervine/`
+   - Your site will be available at: `https://schuttpj.github.io/HER-VINE/`
 
 ### Environment Variables for Production:
 
