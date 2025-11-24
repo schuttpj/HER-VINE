@@ -58,7 +58,7 @@ const About: React.FC = () => {
                              {/* Main Image */}
                              <div className="absolute inset-0 overflow-hidden rounded-sm bg-hv-stone">
                                  <img 
-                                    src="/images/terroir.jpeg" 
+                                    src={`${import.meta.env.BASE_URL}images/terroir.jpeg`} 
                                     alt="Terroir" 
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                  />
