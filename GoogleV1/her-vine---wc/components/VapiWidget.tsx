@@ -6,12 +6,14 @@ interface VapiWidgetProps {
   apiKey: string;
   assistantId: string;
   config?: Record<string, unknown>;
+  mobile?: boolean;
 }
 
 const VapiWidget: React.FC<VapiWidgetProps> = ({ 
   apiKey, 
   assistantId, 
-  config = {} 
+  config = {},
+  mobile = false
 }) => {
   const [vapi, setVapi] = useState<Vapi | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -89,7 +91,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
       <button
         ref={buttonRef}
         onClick={isConnected ? endCall : handleStartClick}
-        className={`hidden sm:inline-flex items-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border relative ${
+        className={`${mobile ? 'w-full inline-flex' : 'hidden sm:inline-flex'} items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border relative ${
           isConnected
             ? 'bg-hv-earth text-white border-transparent hover:bg-hv-earth animate-pulse-ring'
             : 'bg-hv-terracotta text-white border-transparent hover:bg-hv-earth'
@@ -113,7 +115,7 @@ const VapiWidget: React.FC<VapiWidgetProps> = ({
           
           {/* Glass modal positioned below button */}
           <div 
-            className="absolute top-full right-0 mt-2 z-50 w-72 rounded-sm overflow-hidden"
+            className={`${mobile ? 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-3rem)] max-w-sm' : 'absolute top-full right-0 mt-2 w-72'} z-50 rounded-sm overflow-hidden`}
             style={{
               background: 'rgba(245, 242, 235, 0.98)',
               backdropFilter: 'blur(24px)',

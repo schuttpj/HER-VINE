@@ -15,6 +15,22 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header 
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
@@ -80,13 +96,14 @@ const Navbar: React.FC = () => {
             )}
             
             <button 
-              className="lg:hidden"
+              className="lg:hidden p-2 -mr-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (
-                <X className={isScrolled ? 'text-hv-charcoal' : 'text-white'} />
+                <X className={`w-6 h-6 ${isScrolled ? 'text-hv-charcoal' : 'text-white'}`} />
               ) : (
-                <Menu className={isScrolled ? 'text-hv-charcoal' : 'text-white'} />
+                <Menu className={`w-6 h-6 ${isScrolled ? 'text-hv-charcoal' : 'text-white'}`} />
               )}
             </button>
           </div>
@@ -94,21 +111,70 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-hv-cream z-40 flex flex-col items-center justify-center transition-all duration-500 ${
-        isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-      }`}>
-        <nav className="flex flex-col items-center gap-8">
-          {NAV_ITEMS.map((item) => (
-            <a 
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-3xl font-serif text-hv-charcoal hover:text-hv-terracotta transition-colors"
+      <div 
+        className={`fixed inset-0 bg-hv-cream z-40 transition-all duration-300 ease-out ${
+          isMobileMenuOpen 
+            ? 'opacity-100 visible' 
+            : 'opacity-0 invisible pointer-events-none'
+        }`}
+        onClick={closeMobileMenu}
+      >
+        {/* Slide-down menu panel */}
+        <div 
+          className={`absolute top-0 left-0 right-0 bg-hv-cream shadow-lg transition-transform duration-300 ease-out overflow-y-auto ${
+            isMobileMenuOpen 
+              ? 'translate-y-0' 
+              : '-translate-y-full'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header with close button */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-hv-charcoal/10">
+            <span className="text-xl font-serif tracking-widest uppercase font-medium text-hv-charcoal">
+              Her Vine
+            </span>
+            <button
+              onClick={closeMobileMenu}
+              className="p-2 -mr-2 text-hv-charcoal hover:text-hv-terracotta transition-colors"
+              aria-label="Close menu"
             >
-              {item.label}
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Navigation Items */}
+          <nav className="flex flex-col px-6 py-8 gap-6">
+            {NAV_ITEMS.map((item) => (
+              <a 
+                key={item.label}
+                href={item.href}
+                onClick={closeMobileMenu}
+                className="text-2xl font-serif text-hv-charcoal hover:text-hv-terracotta transition-colors py-2"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Action Buttons */}
+          <div className="px-6 pb-8 pt-4 space-y-3 border-t border-hv-charcoal/10">
+            <a 
+              href="#contact" 
+              onClick={closeMobileMenu}
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-sans font-medium uppercase tracking-widest transition-all duration-300 rounded-sm border bg-hv-terracotta text-white border-transparent hover:bg-hv-earth"
+            >
+              Book Tasting
             </a>
-          ))}
-        </nav>
+            
+            {import.meta.env.VITE_VAPI_API_KEY && import.meta.env.VITE_VAPI_ASSISTANT_ID && (
+              <VapiWidget 
+                apiKey={import.meta.env.VITE_VAPI_API_KEY}
+                assistantId={import.meta.env.VITE_VAPI_ASSISTANT_ID}
+                mobile={true}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </header>
   );
