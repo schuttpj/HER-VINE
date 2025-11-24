@@ -43,8 +43,11 @@ const Navbar: React.FC = () => {
       className={`sticky lg:fixed top-0 w-full z-50 transition-all duration-300 border-b ${
         isScrolled 
           ? 'bg-hv-cream/90 backdrop-blur-xl border-hv-charcoal/5 py-4' 
-          : 'bg-black/20 backdrop-blur-sm border-white/5 py-6'
+          : 'bg-black/80 backdrop-blur-sm border-white/5 py-6'
       }`}
+      style={{
+        paddingTop: 'env(safe-area-inset-top)',
+      }}
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="flex items-center justify-between">
